@@ -10,8 +10,18 @@ module.exports = (req, res) => {
     subject: "Welcome to brainbo meditation app",
     text: "Welcome to mycoocoon! Enjoy your personal meditation and unleash the power of light and color to reveal your current needs. Just use your intuition and let mycoocoon do the magic.",
   };
-  sgMail.send(msg);
-  res.json({
-    hola: "mundo",
-  });
+  sgMail.send(msg).then(
+    () => {
+      console.log("Sent");
+      res.json({
+        hola: "mundo",
+      });
+    },
+    (error) => {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.body);
+      }
+    }
+  );
 };
